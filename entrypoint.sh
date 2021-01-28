@@ -22,7 +22,7 @@ pacmd set-default-source v1.monitor
 
 #--force-device-scale-factor=2
 xvfb-run --server-num 99 --server-args="-ac -screen 0 1280x720x24" \
-    google-chrome-stable --disable-gpu --no-sandbox --disable-setuid-sandbox --kiosk \
+    google-chrome-stable --no-sandbox --disable-setuid-sandbox --kiosk \
     --hide-scrollbars --disable-notifications \
     --disable-infobars --no-first-run \
     --lang="$LANGUAGE" \
@@ -36,13 +36,13 @@ sleep 10
 # ffmpeg config variables
 res_input="1280x720" # input resolution
 res_output="1280x720" # output resolution
-fps="60" # target FPS
-gop="1200" # i-frame interval, should be double of fps
-gop_min="60" # min i-frame interval, should be equal to fps
+fps="30" # target FPS
+gop="60" # i-frame interval, should be double of fps
+gop_min="30" # min i-frame interval, should be equal to fps
 probesize="42M" # https://stackoverflow.com/a/57904380
 threads="0" # max 6
 cbr="${V_BITRATE:-2000k}" # constant bitrate (should be between 1000k–3000k)
-quality="ultrafast" # one of the many FFmpeg presets
+quality="fast" # one of the many FFmpeg presets
 audio_bitrate="${A_BITRATE:-256k}"
 loglevel="verbose" # supress unecessary information from printing
 
@@ -54,6 +54,3 @@ ffmpeg -loglevel "${loglevel}" -thread_queue_size 512 -draw_mouse 0 \
         -pix_fmt yuv420p \
         -threads ${threads} -strict normal \
         -f flv $RTMP_URL
-
-
-
