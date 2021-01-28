@@ -22,7 +22,7 @@ pacmd set-default-source v1.monitor
 
 #--force-device-scale-factor=2
 xvfb-run --server-num 99 --server-args="-ac -screen 0 1280x720x24" \
-    google-chrome-stable --no-sandbox --disable-setuid-sandbox --disable-gpu \
+    google-chrome-stable --disable-gpu --no-sandbox --disable-setuid-sandbox --kiosk \
     --hide-scrollbars --disable-notifications \
     --disable-infobars --no-first-run \
     --lang="$LANGUAGE" \
