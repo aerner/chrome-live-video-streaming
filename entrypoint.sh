@@ -41,16 +41,19 @@ gop="60" # i-frame interval, should be double of fps
 gop_min="30" # min i-frame interval, should be equal to fps
 probesize="42M" # https://stackoverflow.com/a/57904380
 threads="0" # max 6
-cbr="${V_BITRATE:-2000k}" # constant bitrate (should be between 1000k–3000k)
-quality="fast" # one of the many FFmpeg presets
+cbr="${V_BITRATE:-3500k}" # constant bitrate (should be between 1000k–3000k)
+quality="ultrafast" # one of the many FFmpeg presets
 audio_bitrate="${A_BITRATE:-256k}"
 loglevel="verbose" # supress unecessary information from printing
+
+# -tune film 
 
 ffmpeg -loglevel "${loglevel}" -thread_queue_size 512 -draw_mouse 0 \
         -f x11grab -r ${fps} -s "${res_input}" -probesize ${probesize} -i :99 \
         -f alsa -ac 2 -i default -b:a ${audio_bitrate} \
-        -vcodec libx264 -acodec aac -g ${gop} -keyint_min ${gop_min} -b:v ${cbr} -bufsize ${cbr} \
-        -s ${res_output} -preset "${quality}" -tune film \
+        -vcodec libx264rgb -acodec aac -g ${gop} -keyint_min ${gop_min} -b:v ${cbr} -bufsize ${cbr} \
+        -s ${res_output} -preset "${quality}" \
         -pix_fmt yuv420p \
         -threads ${threads} -strict normal \
+        -x264-params keyint=30:scenecut=0 \
         -f flv $RTMP_URL
