@@ -16,6 +16,8 @@ fi
 LANGUAGE="${LANGUAGE:-en}"
 RESOLUTION="${RESOLUTION:-1920x1080}"
 FPS="${FPS:-24}"
+GOP="${GOP:-48}"
+GOP_MIN="${GOP_MIN:-24}"
 LOG_LEVEL="${LOG_LEVEL:-error}"
 V_BITRATE="${V_BITRATE:-3000k}"
 A_BITRATE="${A_BITRATE:-256k}"
@@ -45,8 +47,8 @@ sleep 10
 
 
 fps=$FPS # target FPS
-gop=$((FPS*2)) # i-frame interval, should be double of fps
-gop_min=$FPS # min i-frame interval, should be equal to fps
+gop=$GOP # i-frame interval, should be double of fps
+gop_min=$GOP_MIN # min i-frame interval, should be equal to fps
 
 probesize="42M" # https://stackoverflow.com/a/57904380
 threads="0" # max 6
