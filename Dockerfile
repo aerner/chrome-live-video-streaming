@@ -1,7 +1,5 @@
 FROM debian:9-slim
 
-MAINTAINER Aleksey Kolyadin <donflash@gmail.com>
-
 RUN apt-get update && apt-get install -y htop nano wget pulseaudio socat alsa-utils ffmpeg xvfb sudo
 
 RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
